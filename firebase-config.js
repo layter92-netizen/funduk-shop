@@ -3,7 +3,7 @@ import { getAuth } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCaXWdAkWm52xjIGYVdfb29pp4-X64yglQ",
+  apiKey: "AIzaSyCaXWdAKWm52xjIGYVdfb29pp4-X64yglQ",
   authDomain: "funduk-shop.firebaseapp.com",
   projectId: "funduk-shop",
   storageBucket: "funduk-shop.firebasestorage.app",
