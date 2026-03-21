@@ -3,13 +3,12 @@ import { getAuth } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDnBO3bwWqadmuU-zGzQ1KKdwbeDtFNygI",
-  authDomain: "olymp-shop.firebaseapp.com",
-  databaseURL: "https://olymp-shop-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "olymp-shop",
-  storageBucket: "olymp-shop.firebasestorage.app",
-  messagingSenderId: "895310779944",
-  appId: "1:895310779944:web:ec4288dcd7e7fccf1a871d"
+  apiKey: "AIzaSyCaXWdAkWm52xjIGYVdfb29pp4-X64yglQ",
+  authDomain: "funduk-shop.firebaseapp.com",
+  projectId: "funduk-shop",
+  storageBucket: "funduk-shop.firebasestorage.app",
+  messagingSenderId: "542778533302",
+  appId: "1:542778533302:web:0d7829a22f03a5f8ee0d17"
 };
 
 const app = initializeApp(firebaseConfig);

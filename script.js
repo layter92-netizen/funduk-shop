@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     productGrid.innerHTML = '<p style="text-align: center; width: 100%; grid-column: 1 / -1;">Завантаження товарів...</p>';
 
     try {
-        const querySnapshot = await getDocs(collection(db, "products"));
+        const querySnapshot = await getDocs(collection(db, "seedlings"));
         querySnapshot.forEach((doc) => {
             const data = doc.data();
             // Only add products that are available
