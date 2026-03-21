@@ -256,9 +256,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         // Build dynamic selector for pieces (pcs)
         let selectorHTML = `
             <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin: 20px 0;">
-                <button id="qty-minus" style="width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--accent-gold); background: transparent; color: var(--accent-gold); font-size: 1.5rem;">-</button>
-                <input type="number" id="modal-qty-input" value="1" min="1" max="50" style="width: 80px; text-align: center; font-size: 1.5rem; background: var(--bg-dark); color: white; border: 1px solid var(--border-color); padding: 10px; border-radius: 5px;">
-                <button id="qty-plus" style="width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--accent-gold); background: transparent; color: var(--accent-gold); font-size: 1.5rem;">+</button>
+                <button id="qty-minus" style="width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--accent-gold); background: transparent; color: var(--accent-gold); font-size: 1.5rem; cursor: pointer; transition: 0.2s;">-</button>
+                <input type="number" id="modal-qty-input" value="1" min="1" max="50" style="width: 80px; text-align: center; font-size: 1.5rem; background: #fff; color: #333; border: 2px solid var(--accent-gold); padding: 10px; border-radius: 8px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.05); font-weight: bold; outline: none;">
+                <button id="qty-plus" style="width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--accent-gold); background: transparent; color: var(--accent-gold); font-size: 1.5rem; cursor: pointer; transition: 0.2s;">+</button>
                 <span style="font-size: 1.2rem;">шт</span>
             </div>
         `;
