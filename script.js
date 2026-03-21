@@ -401,6 +401,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     checkoutForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 
+        alert("Тимчасово не приймаємо замовлення онлайн. Будь ласка, зверніться до нас за телефоном або у Telegram/TikTok!");
+        return;
+
         if (cart.length === 0) {
             alert("Ваш кошик порожній. Додайте товари перед оформленням замовлення.");
             return;
