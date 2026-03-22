@@ -403,7 +403,7 @@ a {
     justify-content: space-between;
     position: relative;
     z-index: 2;
-    background: var(--bg-card);
+    background: var(--card-bg);
 }
 
 .product-title {
@@ -473,7 +473,7 @@ a {
 }
 
 .item-qty option {
-    background: var(--bg-card);
+    background: var(--card-bg);
     color: var(--text-main);
 }
 
@@ -601,7 +601,7 @@ a {
 .cart-modal {
     width: 100%;
     max-width: 450px;
-    background: var(--bg-card);
+    background: var(--card-bg);
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -624,7 +624,7 @@ a {
     align-items: center;
     position: sticky;
     top: 0;
-    background: var(--bg-card);
+    background: var(--card-bg);
     z-index: 10;
 }
 

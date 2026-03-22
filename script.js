@@ -285,10 +285,37 @@ document.addEventListener("DOMContentLoaded", async () => {
         detailsProductImg.src = product.image;
         detailsProductImg.onerror = function() {this.src='logo.png'};
         detailsProductName.textContent = product.title;
-        detailsProductDesc.innerHTML = product.description || VARIETY_DESCRIPTIONS[product.title] || 'На жаль, детального опису щодо цього сорту поки що немає.';
+        
+        // Find description: either from product field or match variety name
+        let description = product.description;
+        if (!description) {
+            const varietyName = Object.keys(VARIETY_DESCRIPTIONS).find(key => product.title.includes(key));
+            if (varietyName) {
+                description = VARIETY_DESCRIPTIONS[varietyName];
+            }
+        }
+        
+        detailsProductDesc.innerHTML = description || 'На жаль, детального опису щодо цього сорту поки що немає.';
         detailsPriceSpan.textContent = product.price;
         
+        const status = product.stockStatus || (product.available !== false ? 'available' : 'out_of_stock');
+        const isAvailable = status === 'available';
+        
+        if (!isAvailable) {
+            addToCartFromDetailsBtn.disabled = true;
+            addToCartFromDetailsBtn.style.opacity = '0.5';
+            addToCartFromDetailsBtn.style.cursor = 'not-allowed';
+            addToCartFromDetailsBtn.textContent = 'Тимчасово немає в наявності';
+        } else {
+            addToCartFromDetailsBtn.disabled = false;
+            addToCartFromDetailsBtn.style.opacity = '1';
+            addToCartFromDetailsBtn.style.cursor = 'pointer';
+            addToCartFromDetailsBtn.innerHTML = `В кошик за <span id="details-price">${product.price}</span> грн/шт`;
+            // Re-fetch the newly created span if needed, but innerHTML above replaces it
+        }
+        
         addToCartFromDetailsBtn.onclick = () => {
+            if (!isAvailable) return;
             detailsModalOverlay.classList.remove('active');
             let idx = products.findIndex(p => p.id === product.id);
             openQtyModal(product, idx);
