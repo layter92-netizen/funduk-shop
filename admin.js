@@ -22,7 +22,7 @@ const priceInput = document.getElementById("p-price");
 const imageInput = document.getElementById("p-image-url");
 const imagePreview = document.getElementById("image-preview");
 const categoryInputs = document.querySelectorAll('input[name="category"]');
-const availableInput = document.getElementById("p-available");
+const statusInput = document.getElementById("p-status");
 const docIdInput = document.getElementById("doc-id");
 const saveBtn = document.getElementById("save-btn");
 const cancelEditBtn = document.getElementById("cancel-edit-btn");
@@ -99,7 +99,12 @@ function renderProductList() {
     }
 
     currentProducts.forEach(product => {
-        const isAvailable = product.available !== false; // Default to true if undefined
+        const status = product.stockStatus || (product.available !== false ? 'available' : 'out_of_stock');
+        const isAvailable = status === 'available';
+        
+        let statusLabel = '';
+        if (status === 'out_of_stock') statusLabel = '(Закінчилися)';
+        if (status === 'temporarily_unavailable') statusLabel = '(Тимчасово немає)';
         const categories = product.categories || [];
         
         const card = document.createElement("div");
@@ -108,7 +113,7 @@ function renderProductList() {
         card.innerHTML = `
             <img src="${product.image}" class="admin-img-preview" alt="фото" onerror="this.src='logo.png'">
             <div class="admin-product-info">
-                <div style="font-weight: bold; font-size: 1.1em; color: white;">${product.title} ${!isAvailable ? '(Немає)' : ''}</div>
+                <div style="font-weight: bold; font-size: 1.1em; color: white;">${product.title} <span style="color: #ff4d4d; font-size: 0.8em;">${statusLabel}</span></div>
                 <div style="color: var(--accent-gold);">${product.price} грн / шт</div>
                 <div style="font-size: 0.8em; color: #999; margin-top: 4px;">Категорії: ${categories.join(', ')}</div>
             </div>
@@ -190,7 +195,8 @@ productForm.addEventListener("submit", async (e) => {
             unit: 'pcs',
             image: imageUrl,
             categories: selectedCategories,
-            available: availableInput.checked
+            stockStatus: statusInput.value,
+            available: statusInput.value === 'available'
         };
         
         const editingId = docIdInput.value;
@@ -226,7 +232,7 @@ function editProduct(id) {
     descInput.value = product.description || '';
     priceInput.value = product.price;
     imageInput.value = product.image || '';
-    availableInput.checked = product.available !== false;
+    statusInput.value = product.stockStatus || (product.available !== false ? 'available' : 'out_of_stock');
     
     // Categories
     const cats = product.categories || [];
@@ -255,6 +261,7 @@ function resetForm() {
     descInput.value = "";
     imageInput.value = "";
     imagePreview.style.display = "none";
+    statusInput.value = "available";
     formTitle.textContent = "Додати новий товар";
     saveBtn.textContent = "Зберегти товар";
     cancelEditBtn.classList.add("hidden");

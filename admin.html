@@ -117,9 +117,12 @@
                         </div>
 
                         <div>
-                            <label class="checkbox-label" style="font-size: 1.1em; margin-top: 10px; color: white;">
-                                <input type="checkbox" id="p-available" checked> Товар в наявності
-                            </label>
+                            <label style="font-size: 0.9em; color: #ccc; display: block; margin-top: 10px;">Статус наявності</label>
+                            <select id="p-status" style="width: 100%; padding: 10px; border-radius: 6px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.2); color: white; margin-top: 5px; font-size: 1rem;">
+                                <option value="available">В наявності</option>
+                                <option value="out_of_stock">Саджанці закінчилися</option>
+                                <option value="temporarily_unavailable">Тимчасово немає в наявності</option>
+                            </select>
                         </div>
                         
                         <div style="display: flex; gap: 10px;">

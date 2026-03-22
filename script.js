@@ -83,10 +83,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         const querySnapshot = await getDocs(collection(db, "seedlings"));
         querySnapshot.forEach((doc) => {
             const data = doc.data();
-            // Only add products that are available
-            if (data.available !== false) {
-                products.push({ id: doc.id, ...data });
-            }
+            // Include all products now, so we can show "out of stock" ones
+            products.push({ id: doc.id, ...data });
         });
         
         // Sort products alphabetically
@@ -121,13 +119,17 @@ document.addEventListener("DOMContentLoaded", async () => {
             productGrid.innerHTML = '<p style="text-align: center; width: 100%; grid-column: 1 / -1;">В цій категорії поки немає товарів.</p>';
             return;
         }
-
         filteredProducts.forEach((product, index) => {
-            // Find original index for cart functionality
             const originalIndex = products.findIndex(p => p.title === product.title);
+            const status = product.stockStatus || (product.available !== false ? 'available' : 'out_of_stock');
+            const isAvailable = status === 'available';
+            
+            let statusBadge = '';
+            if (status === 'out_of_stock') statusBadge = '<div class="status-badge out-of-stock">Закінчилися</div>';
+            else if (status === 'temporarily_unavailable') statusBadge = '<div class="status-badge unavailable">Тимчасово немає</div>';
 
             const card = document.createElement("div");
-            card.className = "product-card animate-in";
+            card.className = "product-card animate-in" + (isAvailable ? "" : " out-of-stock-card");
             // Reduce animation delay to make it snappier when filtering
             card.style.animationDelay = `${(index % 10) * 0.03}s`;
 
@@ -136,6 +138,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             card.innerHTML = `
                 <div class="product-image-wrapper">
                     <img src="${product.image}" alt="${product.title}" class="product-image" onerror="this.src='logo.png'">
+                    ${statusBadge}
                 </div>
                 <div class="product-info">
                     <h3 class="product-title">${product.title}</h3>
@@ -143,7 +146,9 @@ document.addEventListener("DOMContentLoaded", async () => {
                     <div class="price-row" style="margin-bottom: 10px;">
                         <span class="price-placeholder">${product.price} грн / ${unitLabel}</span>
                     </div>
-                    <button class="add-to-cart w-100" data-index="${originalIndex}">Обрати кількість</button>
+                    <button class="add-to-cart w-100" data-index="${originalIndex}" ${!isAvailable ? 'disabled style="opacity: 0.5; cursor: not-allowed; border-color: #999; color: #999;"' : ''}>
+                        ${isAvailable ? 'Обрати кількість' : 'Немає в наявності'}
+                    </button>
                 </div>
             `;
 
